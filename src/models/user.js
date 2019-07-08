@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const validator = require('validator')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-const Collection = require('./collection')
+const Invoice = require('./invoice')
 
 const userSchema = new mongoose.Schema({
     name: { // represents the company's name
@@ -22,9 +22,9 @@ const userSchema = new mongoose.Schema({
         validate(value) {
             if (!validator.isEmail(value)) {
                 throw new Error('Email is invalid')
-            } else if (value !== "sanks.bs@gmail.com") {
-                throw new Error('Contact admin')
-            }
+            } //else if (value !== "sanks.bs@gmail.com") {
+                //throw new Error('Contact admin')
+            //}
         }
     },
     password: {
@@ -58,9 +58,9 @@ const userSchema = new mongoose.Schema({
 // shows link between users and collections
 // it is not actually stored in the database hence the virtual
 userSchema.virtual('collections', {
-    ref: 'Collection', // this is the model that you seek to tie the User model to
+    ref: 'Invoice', // this is the model that you seek to tie the User model to
     localField: '_id', // this is the ID that you seek to tie to
-    foreignField: 'owner' // this is what you're calling the field from the User schema that you want to tie to the Collection model
+    foreignField: 'owner' // this is what you're calling the field from the User schema that you want to tie to the Invoice model
 })
 
 // this method hides the token and password when the user object is returned
@@ -115,11 +115,11 @@ userSchema.pre('save', async function (next) {
 // delete user collections when user is deleted
 userSchema.pre('remove', async function (next) {
     const user = this
-    await Collection.deleteMany({ owner: user._id })
+    await Invoice.deleteMany({ owner: user._id })
     next()
 })
 
-// users collection model and schema
+// users invoice model and schema
 const User = mongoose.model('User', userSchema)
 
 module.exports = User
