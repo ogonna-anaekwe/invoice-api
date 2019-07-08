@@ -125,7 +125,7 @@ router.delete('/users/me', auth, async (req, res) => {
 })
 
 
-// endpoint for creating user avatar
+// endpoint for creating user / company avatar
 router.post('/users/me/avatar', auth, upload.single('userAvatar'), async (req, res) => {
     const buffer = await sharp(req.file.buffer).resize({ width: 250, height: 250 }).png().toBuffer()
     req.user.avatar = buffer
