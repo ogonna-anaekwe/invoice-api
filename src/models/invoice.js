@@ -16,7 +16,16 @@ const invoiceSchema = new mongoose.Schema(
             required: true,
             trim: true,
             lowercase: true
-        }
+        }, 
+            amountPaid: {
+            type: String,
+            required: true, 
+            trim: true
+        },
+            clientEmail: {
+            type: String,
+            trim: true
+            }
     },
         companyInfo: {
         companyName: {
@@ -31,10 +40,26 @@ const invoiceSchema = new mongoose.Schema(
             trim: true,
             lowercase: true
         },
+        companyBankAccountName: {
+            type: String,
+            required: true,
+            trim: true,
+            lowercase: true
+        },
         companyAccountNumber: {
             type: String,
             required: true,
             trim: true,
+        },
+        companyPhoneNumber: {
+            type: String,
+            required: true,
+            trim: true
+        },
+        companyEmail: {
+            type: String,
+            required: true,
+            trim: true
         }},
         // create array of items (for cases where an invoice should have more than one item)
         invoiceItemInfo: [{
@@ -61,28 +86,24 @@ const invoiceSchema = new mongoose.Schema(
                 required: true,
                 trim: true,
                 lowercase: true
-            },
-            itemDiscount: {
+            }
+        }],
+        termsAndConditions: [{
+            termDescription: {
                 type: String,
                 // required: true,
                 trim: true,
-                lowercase: true,
-                default: 0
-            },
-            amountPaid: {
-                type: String,
-                // required: true,
-                trim: true,
-                default: 0
+                lowercase: true
             }
         }],
         invoiceNumber: {
             type: String
         },
-        phoneNumber: {
-            type: String,
-            // required: true,
-            trim: true
+        invoiceDueDateInfo: {
+            type: Date
+        },
+        invoiceStatus: {
+            type: String
         }//,
         // stores the id of who created the invoice
         // owner: {
@@ -105,10 +126,10 @@ invoiceSchema.pre('save', async function (next) {
     // here we are simply multiplying phoneNumber by 2 and 
     // as a result, what ever the user enters is multiplied by 2 in the response
     // that is, we are multiplying the req by 2 to get the res
-    if (invoice.isModified('phoneNumber')) {
-        invoice.phoneNumber = await '+234'.concat(invoice.phoneNumber)
-        // console.log(invoice.items.itemPrice)
-    }
+    // if (invoice.isModified('phoneNumber')) {
+    //     invoice.phoneNumber = await '+234'.concat(invoice.phoneNumber)
+    //     // console.log(invoice.items.itemPrice)
+    // }
 
     next()
 })
