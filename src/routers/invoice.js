@@ -6,18 +6,19 @@ const auth = require('../middleware/auth')
 
 
 // create new invoice
-// router.post('/invoices', auth, async (req, res) => {
-router.post('/invoices', async (req, res) => {
+router.post('/invoices', auth, async (req, res) => {
+// router.post('/invoices', async (req, res) => {
     // console.log(req.body)
     const invoiceNumber = uniqid.process()
+    const owner = req.user._id
     // console.log(invoiceNumber)
     const invoice = new Invoice({
         // add owner to body
         ...req.body,
-        invoiceNumber
-        //,
-        //owner: req.user._id // this value comes from the user const defined in the auth middleware
+        owner,
+        invoiceNumber,// this value comes from the user const defined in the auth middleware
     })
+    console.log(owner)
     try {
         await invoice.save()
         res.status(201).send(invoice)
@@ -28,16 +29,25 @@ router.post('/invoices', async (req, res) => {
     }
 })
 
-// get all created invoices
-router.get('/invoices', async (req, res) => {
+// get all created invoices (no auth)
+// router.get('/invoices', async (req, res) => {
+//     try {
+//         const invoices = await Invoice.find({})
+//         res.status(200).send(invoices)
+//     } catch (e) {
+//         res.status(500).send()
+//     }
+// })
+
+router.get('/invoices', auth, async (req, res) => {
     try {
-        const invoices = await Invoice.find({})
-        res.status(200).send(invoices)
+        // const invoices = await Invoice.find({ owner: req.user_id })
+        await req.user.populate('invoices').execPopulate()
+        res.send(req.user.invoices)
     } catch (e) {
         res.status(500).send()
     }
 })
-
 
 // get specific invoice. Unlike the route above,
 // this doesn't require auth, so that means the req.user._id would be undefined

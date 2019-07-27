@@ -80,7 +80,7 @@ router.get('/users/me', auth ,async (req, res) => {
 // update user record
 router.patch('/users/me', auth, async (req, res) => {
     const updates = Object.keys(req.body)
-    const allowedUpdates = ['name', 'email', 'password', 'phone_number']
+    const allowedUpdates = ['email', 'password']
     console.log(updates)
 
     // check that every field that's being updated actually exists

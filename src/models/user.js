@@ -6,25 +6,16 @@ const jwt = require('jsonwebtoken')
 const Invoice = require('./invoice')
 
 const userSchema = new mongoose.Schema({
-    name: { // represents the company's name
-        type: String,
-        required: true,
-        trim: true, 
-        lowercase: true
-    },
     email: {
         type: String,
         unique: true, // guarantees no two users have the same email
         required: true,
         trim: true,
         lowercase: true,
-        default: "sanks.bs@gmail.com",
         validate(value) {
             if (!validator.isEmail(value)) {
                 throw new Error('Email is invalid')
-            } //else if (value !== "sanks.bs@gmail.com") {
-                //throw new Error('Contact admin')
-            //}
+            } 
         }
     },
     password: {
@@ -42,22 +33,12 @@ const userSchema = new mongoose.Schema({
             type: String,
             required: true
         }
-    }],
-    phone_number: {
-        type: String,
-        required: true,
-        trim: true,
-        lowercase: true,
-        default: "+2348173028603"
-    },
-    avatar: {
-        type: Buffer
-    }
+    }]
 }, { timestamps: true })
 
-// shows link between users and collections
+// shows link between users and invoices
 // it is not actually stored in the database hence the virtual
-userSchema.virtual('collections', {
+userSchema.virtual('invoices', {
     ref: 'Invoice', // this is the model that you seek to tie the User model to
     localField: '_id', // this is the ID that you seek to tie to
     foreignField: 'owner' // this is what you're calling the field from the User schema that you want to tie to the Invoice model

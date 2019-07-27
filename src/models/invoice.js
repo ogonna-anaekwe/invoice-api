@@ -104,14 +104,14 @@ const invoiceSchema = new mongoose.Schema(
         },
         invoiceStatus: {
             type: String
-        }//,
+        },
         // stores the id of who created the invoice
-        // owner: {
-        //     type: mongoose.Schema.Types.ObjectId,
-        //     required: true,
-        //     ref: 'User' // this helps link the User and Invoice models
-        //     // User is the name of the module exported from the User model
-        // }
+        owner: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: true,
+            ref: 'User' // this helps link the User and Invoice models
+            // User is the name of the module exported from the User model
+        }
     }, { 
         timestamps: true 
     }
