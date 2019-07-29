@@ -77,11 +77,15 @@ router.get('/users/me', auth ,async (req, res) => {
     res.send(req.user)
 })
 
-// update user record
+// update user record i.e. email or password
+// re-purpose this for updating or recovering
+// password
 router.patch('/users/me', auth, async (req, res) => {
+    // console.log(req.body)
     const updates = Object.keys(req.body)
-    const allowedUpdates = ['email', 'password']
-    console.log(updates)
+    // const allowedUpdates = ['email', 'password']
+    const allowedUpdates = ['password']
+    // console.log(updates)
 
     // check that every field that's being updated actually exists
     // in the already defined schema

@@ -122,8 +122,8 @@ router.delete('/invoices/:id/items/:itemId', async (req, res) => {
 })
 
 // update specific invoice for invoice due date info and invoice status
-// router.patch('/invoices/:id', auth, async (req, res) => {
-    router.patch('/invoices/:id', async (req, res) => {
+router.patch('/invoices/:id', auth, async (req, res) => {
+    // router.patch('/invoices/:id', async (req, res) => {
         const updates = Object.keys(req.body)
         const allowedUpdates = [
             'invoiceDueDateInfo',
@@ -138,8 +138,8 @@ router.delete('/invoices/:id/items/:itemId', async (req, res) => {
     
         const _id = req.params.id
         try {
-            // const invoice = await Invoice.findOne({_id, owner: req.user._id })
-            const invoice = await Invoice.findOne({_id})
+            const invoice = await Invoice.findOne({_id, owner: req.user._id })
+            // const invoice = await Invoice.findOne({_id})
     
             if (!invoice) {
                 res.status(404).send()
@@ -157,8 +157,8 @@ router.delete('/invoices/:id/items/:itemId', async (req, res) => {
         }
     })
 // update specific invoice for client info
-// router.patch('/invoices/:id', auth, async (req, res) => {
-router.patch('/invoices/:id/clientinfo', async (req, res) => {
+router.patch('/invoices/:id/clientinfo', auth, async (req, res) => {
+// router.patch('/invoices/:id/clientinfo', async (req, res) => {
     const updates = Object.keys(req.body)
     // we are only allowed to update properties in the clientInfo object
     const allowedUpdates = [
@@ -175,8 +175,8 @@ router.patch('/invoices/:id/clientinfo', async (req, res) => {
 
     const _id = req.params.id
     try {
-        // const invoice = await Invoice.findOne({_id, owner: req.user._id })
-        const invoice = await Invoice.findOne({_id})
+        const invoice = await Invoice.findOne({_id, owner: req.user._id })
+        // const invoice = await Invoice.findOne({_id})
 
         if (!invoice) {
             res.status(404).send()
@@ -199,8 +199,8 @@ router.patch('/invoices/:id/clientinfo', async (req, res) => {
 })
 
 // update specific invoice for company info
-// router.patch('/invoices/:id', auth, async (req, res) => {
-    router.patch('/invoices/:id/companyinfo', async (req, res) => {
+router.patch('/invoices/:id/companyinfo', auth, async (req, res) => {
+    // router.patch('/invoices/:id/companyinfo', async (req, res) => {
         const updates = Object.keys(req.body)
         // we are only allowed to update properties in the companyInfo object
         const allowedUpdates = [
@@ -220,8 +220,8 @@ router.patch('/invoices/:id/clientinfo', async (req, res) => {
     
         const _id = req.params.id
         try {
-            // const invoice = await Invoice.findOne({_id, owner: req.user._id })
-            const invoice = await Invoice.findOne({_id})
+            const invoice = await Invoice.findOne({_id, owner: req.user._id })
+            // const invoice = await Invoice.findOne({_id})
     
             if (!invoice) {
                 res.status(404).send()
@@ -244,7 +244,7 @@ router.patch('/invoices/:id/clientinfo', async (req, res) => {
     })
 
 //update specific invoice item
-router.patch('/invoices/:id/items/:itemId', async (req, res) => {
+router.patch('/invoices/:id/items/:itemId', auth, async (req, res) => {
     const updates = Object.keys(req.body)
     const allowedUpdates = [
         'itemDescription',
@@ -261,8 +261,8 @@ router.patch('/invoices/:id/items/:itemId', async (req, res) => {
     const _id = req.params.id
     const itemId = req.params.itemId
     try {
-        // const invoice = await Invoice.findOne({_id, owner: req.user._id })
-        const invoice = await Invoice.findOne({_id})
+        const invoice = await Invoice.findOne({_id, owner: req.user._id })
+        // const invoice = await Invoice.findOne({_id})
         const invoiceItem = await invoice.invoiceItemInfo.id(itemId)
 
         if (!invoiceItem) {
@@ -289,7 +289,7 @@ router.patch('/invoices/:id/items/:itemId', async (req, res) => {
 })
 
 //update specific terms and conditions item
-router.patch('/invoices/:id/termsandconditions/:itemId', async (req, res) => {
+router.patch('/invoices/:id/termsandconditions/:itemId', auth, async (req, res) => {
     const updates = Object.keys(req.body)
     const allowedUpdates = [
         'termDescription'
@@ -304,8 +304,8 @@ router.patch('/invoices/:id/termsandconditions/:itemId', async (req, res) => {
     const _id = req.params.id
     const itemId = req.params.itemId
     try {
-        // const invoice = await Invoice.findOne({_id, owner: req.user._id })
-        const invoice = await Invoice.findOne({_id})
+        const invoice = await Invoice.findOne({_id, owner: req.user._id })
+        // const invoice = await Invoice.findOne({_id})
         const tandCItem = await invoice.termsAndConditions.id(itemId)
 
         if (!tandCItem) {
@@ -330,13 +330,13 @@ router.patch('/invoices/:id/termsandconditions/:itemId', async (req, res) => {
 
 // delete specific invoice
 // router.delete('/invoices/:id', auth, async (req, res) => {
-router.delete('/invoices/:id', async (req, res) => {
+router.delete('/invoices/:id', auth, async (req, res) => {
     const _id = req.params.id
 
     try {
         // const invoice = await Invoice.findByIdAndDelete(req.params.id)
-        // const invoice = await Invoice.findOneAndDelete({ _id, owner: req.user._id})
-        const invoice = await Invoice.findOneAndDelete({ _id })
+        const invoice = await Invoice.findOneAndDelete({ _id, owner: req.user._id})
+        // const invoice = await Invoice.findOneAndDelete({ _id })
         
         if (!invoice) {
             return res.status(404).send()
