@@ -1,11 +1,12 @@
 {
   "name": "invoice-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "InvoiceStack API",
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
-    "dev": "env-cmd ./config/dev.env nodemon src/index.js"
+    "dev": "env-cmd ./config/dev.env nodemon src/index.js",
+    "commit": "npx git-cz"
   },
   "keywords": [],
   "author": "",
