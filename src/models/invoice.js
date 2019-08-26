@@ -91,19 +91,24 @@ const invoiceSchema = new mongoose.Schema(
         termsAndConditions: [{
             termDescription: {
                 type: String,
-                // required: true,
+                required: true,
                 trim: true,
                 lowercase: true
             }
         }],
         invoiceNumber: {
-            type: String
+            type: String,
+            required: true
         },
         invoiceDueDateInfo: {
-            type: Date
+            type: Date,
+            required: true
         },
         invoiceStatus: {
-            type: String
+            type: String,
+            // why does the client not often pick up invoice status
+            // on invoice submission?
+            // required: true
         },
         // stores the id of who created the invoice
         owner: {

@@ -18,7 +18,7 @@ router.post('/invoices', auth, async (req, res) => {
         owner,
         invoiceNumber,// this value comes from the user const defined in the auth middleware
     })
-    console.log(owner)
+    // console.log(owner)
     try {
         await invoice.save()
         res.status(201).send(invoice)

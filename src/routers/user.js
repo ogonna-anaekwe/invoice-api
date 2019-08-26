@@ -22,7 +22,7 @@ router.post('/users', async (req, res) => {
     // console.log(process.env.MONGODB_URL)
     // console.log(req.body)
     const user = new User(req.body)
-    
+    // console.log(user)
     try {
         await user.save()
         const token = await user.generateAuthToken()
