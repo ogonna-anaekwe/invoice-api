@@ -8,7 +8,7 @@ const Invoice = require('./invoice')
 const userSchema = new mongoose.Schema({
     email: {
         type: String,
-        unique: true, // guarantees no two users have the same email
+        // unique: true, // guarantees no two users have the same email
         required: true,
         trim: true,
         lowercase: true,

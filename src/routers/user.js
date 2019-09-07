@@ -4,6 +4,7 @@ const router = new express.Router()
 const auth = require('../middleware/auth')
 const multer = require('multer')
 const sharp = require('sharp')
+const sg = require('sendgrid')(process.env.SENDGRID_APIKEY)
 
 const upload = multer({
     limits: {
@@ -23,10 +24,45 @@ router.post('/users', async (req, res) => {
     // console.log(req.body)
     const user = new User(req.body)
     // console.log(user)
+    const request = sg.emptyRequest({
+        method: 'POST',
+        path: '/v3/mail/send',
+        body: {
+          personalizations: [
+            {
+              to: [
+                {
+                  email: `${req.body.email}`
+                }
+              ],
+              subject: 'Sign Up to InvoiceStack successfully!'
+            }
+          ],
+          from: {
+            email: 'customercare@invoicestack.com'
+          },
+          content: [
+            {
+              type: 'text/plain',
+              value: 'Hello there, welcome to InvoiceStack, the preferred invoicing tool for small and growing businesses. For questions and inquiries, please drop us an email at customercare@invoicestack.com'
+            }
+          ]
+        }
+      });
     try {
         await user.save()
         const token = await user.generateAuthToken()
         res.status(201).send({user: user, token: token})
+        // email logic
+        sg.API(request)
+        .then(function (response) {
+            console.log(response.statusCode);
+            console.log(response.body);
+            console.log(response.headers);
+        })
+        .catch(function (error) {
+            console.log(error.response.statusCode);
+        });
     } catch (e) {
         res.status(400).send(e)
         console.log(e.message)
