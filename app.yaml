@@ -1,8 +1,2 @@
 env: flex
 runtime: nodejs
-PORT=3000
-MONGODB_URL="mongodb://127.0.0.1:27017/invoice-api"
-JWT_SECRET=webtokenforinvoiceapi
-SENDGRID_APIKEY=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
-TWILIO_SID=AC9b3c5e742f0ca471edbc722200cacfec
-TWILIO_TOKEN=06f8c9c275bf3f2a17103d43500fc8fc
