@@ -22,7 +22,7 @@
     "fs": "0.0.1-security",
     "git-cz": "^3.2.1",
     "jsonwebtoken": "^8.4.0",
-    "mongodb": "^3.1.10",
+    "mongodb": "^3.1.13",
     "mongoose": "^5.3.16",
     "multer": "^1.4.1",
     "multer-storage-cloudinary": "^2.2.1",
