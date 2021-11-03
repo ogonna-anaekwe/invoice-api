@@ -33,7 +33,7 @@
     "twilio": "^3.30.3",
     "uniqid": "^5.0.3",
     "unique-random": "^2.1.0",
-    "validator": "^10.9.0"
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "env-cmd": "^8.0.2",
