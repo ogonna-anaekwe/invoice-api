@@ -28,7 +28,7 @@
     "multer-storage-cloudinary": "^2.2.1",
     "path": "^0.12.7",
     "sendgrid": "^5.2.3",
-    "sharp": "^0.21.1",
+    "sharp": "^0.30.5",
     "shorthash": "0.0.2",
     "twilio": "^3.30.3",
     "uniqid": "^5.0.3",
