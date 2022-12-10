@@ -18,7 +18,7 @@
     "cors": "^2.8.5",
     "datauri": "^2.0.0",
     "dotenv": "^8.0.0",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "fs": "0.0.1-security",
     "git-cz": "^3.2.1",
     "jsonwebtoken": "^8.4.0",
